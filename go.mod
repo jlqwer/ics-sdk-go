@@ -1,4 +1,4 @@
-module github.com/jlqwer/icsSdkGo
+module github.com/jlqwer/ics-sdk-go
 
 go 1.16
 

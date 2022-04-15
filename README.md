@@ -5,7 +5,7 @@
 调用接口前先初始化：
 ```go
 package main
-import "github.com/jlqwer/icsSdkGo"
+import "github.com/jlqwer/ics-sdk-go"
 func main() {
 	appid := ""
 	secretId := ""
@@ -20,7 +20,7 @@ func main() {
 package main
 import (
     "fmt"
-    "github.com/jlqwer/icsSdkGo"
+    "github.com/jlqwer/ics-sdk-go"
 )
 func main() {
 	appid := ""
@@ -40,7 +40,7 @@ func main() {
 package main
 import (
     "fmt"
-    "github.com/jlqwer/icsSdkGo"
+    "github.com/jlqwer/ics-sdk-go"
 )
 func main() {
 	appid := ""
@@ -57,7 +57,7 @@ func main() {
 package main
 import (
     "fmt"
-    "github.com/jlqwer/icsSdkGo"
+    "github.com/jlqwer/ics-sdk-go"
 )
 func main() {
 	appid := ""
