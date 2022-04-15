@@ -79,3 +79,41 @@ func CheckIp(ip string, useragent string, uri string) CheckResult {
 	}
 	return checkResult
 }
+
+type ipGeoResultData struct {
+	Ip        string
+	LongIp    string
+	Isp       string
+	Area      string
+	RegionId  string
+	Region    string
+	CityId    string
+	City      string
+	CountryId string
+	Country   string
+	Address   string
+}
+
+type IpGeoResult struct {
+	Code  int
+	Msg   string
+	Data  ipGeoResultData
+	Count int
+}
+
+// GetIpGeo IP归属地查询
+func GetIpGeo(ip string) IpGeoResult {
+	var ipGeoResult IpGeoResult
+	result, err := request("/Api/Ipgeo/info", map[string]string{"ip": ip})
+	if err != nil {
+		ipGeoResult.Code = -1
+		ipGeoResult.Msg = err.Error()
+		return ipGeoResult
+	}
+	err = json.Unmarshal(result, &ipGeoResult)
+	if err != nil {
+		ipGeoResult.Code = -1
+		ipGeoResult.Msg = err.Error()
+	}
+	return ipGeoResult
+}
