@@ -6,9 +6,11 @@ type appInfo struct {
 	SecretKey string
 }
 
-var app appInfo
+var (
+	app appInfo
+)
 
-func Ics(appid string, secretId string, secretKey string) {
+func Init(appid string, secretId string, secretKey string) {
 	app.AppId = appid
 	app.SecretId = secretId
 	app.SecretKey = secretKey

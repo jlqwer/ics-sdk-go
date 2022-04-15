@@ -21,7 +21,7 @@ func sha256Encode(src string) string {
 	return res
 }
 
-func post(url string, data netUrl.Values, contentType string) string {
+func post(url string, data netUrl.Values, contentType string) ([]byte, error) {
 
 	body := ioutil.NopCloser(strings.NewReader(data.Encode()))
 	client := &http.Client{}
@@ -33,18 +33,25 @@ func post(url string, data netUrl.Values, contentType string) string {
 	resp, err := client.Do(req)
 	defer resp.Body.Close()
 	if err != nil {
-		fmt.Println(err)
-		return ""
+		return []byte(""), err
 	}
 	result, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Println(err)
-		return ""
-	}
-	return string(result)
+	return result, err
 }
 
-func request(url string, postData interface{}) []interface{} {
+type errorInfo struct {
+	Code int
+	Msg  string
+}
+
+func request(url string, postData interface{}) ([]byte, error) {
+	if app.AppId == "" || app.SecretId == "" || app.SecretKey == "" {
+		info := errorInfo{
+			Code: 1005,
+			Msg:  "Request parameter error",
+		}
+		return json.Marshal(info)
+	}
 	dataStr, _ := json.Marshal(postData)
 	param := make(netUrl.Values)
 	param["appid"] = []string{app.AppId}
@@ -54,17 +61,6 @@ func request(url string, postData interface{}) []interface{} {
 	param["nonce"] = []string{uuid.New()}
 	param["sign"] = []string{sha256Encode(fmt.Sprintf("%s%s%s%s", param["data"][0], param["timestamp"][0], param["nonce"][0], app.SecretKey))}
 
-	res := post(fmt.Sprintf("%s%s", "https://api.jlqwer.com", url), param, "")
-	result := make(map[string]interface{})
-	err := json.Unmarshal([]byte(res), &result)
-	if err != nil {
-		fmt.Printf("Unmarshal with error: %+v\n", err)
-		return nil
-	}
-
-	if int(result["code"].(float64)) == 1 {
-		data := result["data"].([]interface{})
-		return data
-	}
-	return []interface{}{}
+	result, err := post(fmt.Sprintf("%s%s", "https://api.jlqwer.com", url), param, "")
+	return result, err
 }
