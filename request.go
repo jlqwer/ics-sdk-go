@@ -14,6 +14,13 @@ import (
 	"time"
 )
 
+var urlSet = []string{
+	"api.jlqwer.com",
+	"node0.api.jlqwer.com",
+	"node1.api.jlqwer.com",
+	"node2.api.jlqwer.com",
+}
+
 func sha256Encode(src string) string {
 	m := sha256.New()
 	m.Write([]byte(src))
@@ -61,6 +68,14 @@ func request(url string, postData interface{}) ([]byte, error) {
 	param["nonce"] = []string{uuid.New()}
 	param["sign"] = []string{sha256Encode(fmt.Sprintf("%s%s%s%s", param["data"][0], param["timestamp"][0], param["nonce"][0], app.SecretKey))}
 
-	result, err := post(fmt.Sprintf("%s%s", "https://api.jlqwer.com", url), param, "")
+	var result []byte
+	var err error
+	for _, apiUrl := range urlSet {
+		result, err := post(fmt.Sprintf("%s%s", apiUrl, url), param, "")
+		if err == nil {
+			return result, nil
+		}
+	}
+
 	return result, err
 }
