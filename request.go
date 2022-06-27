@@ -39,12 +39,12 @@ func post(url string, data netUrl.Values, contentType string) ([]byte, error) {
 	req.Header.Set("User-Agent", "Mozilla/5.0 (compatible; Ics/3.1; +https://api.jlqwer.com/api/about)")
 
 	resp, err := client.Do(req)
-	defer func(Body io.ReadCloser) {
-		_ = Body.Close()
-	}(resp.Body)
 	if err != nil {
 		return []byte(""), err
 	}
+	defer func(Body io.ReadCloser) {
+		_ = Body.Close()
+	}(resp.Body)
 	result, err := ioutil.ReadAll(resp.Body)
 	return result, err
 }
@@ -74,7 +74,7 @@ func request(url string, postData interface{}) ([]byte, error) {
 	var result []byte
 	var err error
 	for _, apiUrl := range urlSet {
-		result, err := post(fmt.Sprintf("%s%s", apiUrl, url), param, "")
+		result, err := post(fmt.Sprintf("https://%s%s", apiUrl, url), param, "")
 		if err == nil {
 			return result, nil
 		}
