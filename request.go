@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-basic/uuid"
+	"io"
 	"io/ioutil"
 	"net/http"
 	netUrl "net/url"
@@ -38,7 +39,9 @@ func post(url string, data netUrl.Values, contentType string) ([]byte, error) {
 	req.Header.Set("User-Agent", "Mozilla/5.0 (compatible; Ics/3.1; +https://api.jlqwer.com/api/about)")
 
 	resp, err := client.Do(req)
-	defer resp.Body.Close()
+	defer func(Body io.ReadCloser) {
+		_ = Body.Close()
+	}(resp.Body)
 	if err != nil {
 		return []byte(""), err
 	}
