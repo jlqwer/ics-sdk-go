@@ -19,7 +19,6 @@ var urlSet = []string{
 	"api.jlqwer.com",
 	"node0.api.jlqwer.com",
 	"node1.api.jlqwer.com",
-	"node2.api.jlqwer.com",
 }
 
 func sha256Encode(src string) string {
