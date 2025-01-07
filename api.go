@@ -124,6 +124,7 @@ func GetIpGeo(ip string) IpGeoResult {
 	return ipGeoResult
 }
 
+// SendTextMsg 发送文本消息
 func SendTextMsg(app, uids, content string) Result {
 	var result Result
 	resp, err := request("/Api/PushWework/sendTextMsg", map[string]string{
@@ -143,6 +144,8 @@ func SendTextMsg(app, uids, content string) Result {
 	}
 	return result
 }
+
+// SendCardMsg 发送卡片消息
 func SendCardMsg(app, uids, title, description, url, btntxt string) Result {
 	var result Result
 	resp, err := request("/Api/PushWework/sendCardMsg", map[string]string{
