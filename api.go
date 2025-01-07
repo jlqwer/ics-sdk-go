@@ -124,9 +124,13 @@ func GetIpGeo(ip string) IpGeoResult {
 	return ipGeoResult
 }
 
-func SendTextMsg(uids, content string) Result {
+func SendTextMsg(app, uids, content string) Result {
 	var result Result
-	resp, err := request("/Api/PushWework/sendTextMsg", map[string]string{"uids": uids, "content": content})
+	resp, err := request("/Api/PushWework/sendTextMsg", map[string]string{
+		"app":     app,
+		"uids":    uids,
+		"content": content,
+	})
 	if err != nil {
 		result.Code = -1
 		result.Msg = err.Error()
@@ -139,9 +143,10 @@ func SendTextMsg(uids, content string) Result {
 	}
 	return result
 }
-func SendCardMsg(uids, title, description, url, btntxt string) Result {
+func SendCardMsg(app, uids, title, description, url, btntxt string) Result {
 	var result Result
 	resp, err := request("/Api/PushWework/sendCardMsg", map[string]string{
+		"app":         app,
 		"uids":        uids,
 		"title":       title,
 		"description": description,
