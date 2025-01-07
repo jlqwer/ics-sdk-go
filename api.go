@@ -6,6 +6,12 @@ import (
 	"encoding/json"
 )
 
+type Result struct {
+	Code int
+	Msg  string
+	Data interface{}
+}
+
 type IpList struct {
 	Code  int
 	Msg   string
@@ -116,4 +122,41 @@ func GetIpGeo(ip string) IpGeoResult {
 		ipGeoResult.Msg = err.Error()
 	}
 	return ipGeoResult
+}
+
+func sendTextMsg(uids, content string) Result {
+	var result Result
+	resp, err := request("/Api/PushWework/sendTextMsg", map[string]string{"uids": uids, "content": content})
+	if err != nil {
+		result.Code = -1
+		result.Msg = err.Error()
+		return result
+	}
+	err = json.Unmarshal(resp, &result)
+	if err != nil {
+		result.Code = -1
+		result.Msg = err.Error()
+	}
+	return result
+}
+func sendCardMsg(uids, title, description, url, btntxt string) Result {
+	var result Result
+	resp, err := request("/Api/PushWework/sendCardMsg", map[string]string{
+		"uids":        uids,
+		"title":       title,
+		"description": description,
+		"url":         url,
+		"btntxt":      btntxt,
+	})
+	if err != nil {
+		result.Code = -1
+		result.Msg = err.Error()
+		return result
+	}
+	err = json.Unmarshal(resp, &result)
+	if err != nil {
+		result.Code = -1
+		result.Msg = err.Error()
+	}
+	return result
 }
