@@ -21,7 +21,7 @@ type IpList struct {
 
 func getIpList(ipType string) IpList {
 	var ipList = IpList{}
-	result, err := request("/Api/Ipc/getIpcList", map[string]string{"type": ipType})
+	result, err := request("/api/ipc/getIpcList", map[string]string{"type": ipType})
 	if err != nil {
 		ipList.Code = -1
 		ipList.Msg = err.Error()
@@ -72,7 +72,7 @@ func CheckIp(ip string, useragent string, uri string) CheckResult {
 	useragent = base64.StdEncoding.EncodeToString([]byte(useragent))
 	uri = hex.EncodeToString([]byte(uri))
 	var checkResult CheckResult
-	result, err := request("/Api/Ipc/check", map[string]string{"ip": ip, "useragent": useragent, "uri": uri})
+	result, err := request("/api/ipc/check", map[string]string{"ip": ip, "useragent": useragent, "uri": uri})
 	if err != nil {
 		checkResult.Code = -1
 		checkResult.Msg = err.Error()
@@ -110,7 +110,7 @@ type IpGeoResult struct {
 // GetIpGeo IP归属地查询
 func GetIpGeo(ip string) IpGeoResult {
 	var ipGeoResult IpGeoResult
-	result, err := request("/Api/Ipgeo/info", map[string]string{"ip": ip})
+	result, err := request("/api/ip/geo", map[string]string{"ip": ip})
 	if err != nil {
 		ipGeoResult.Code = -1
 		ipGeoResult.Msg = err.Error()
@@ -127,7 +127,7 @@ func GetIpGeo(ip string) IpGeoResult {
 // SendTextMsg 发送文本消息
 func SendTextMsg(app, uids, content string) Result {
 	var result Result
-	resp, err := request("/Api/PushWework/sendTextMsg", map[string]string{
+	resp, err := request("/api/pushWework/sendTextMsg", map[string]string{
 		"app":     app,
 		"uids":    uids,
 		"content": content,
@@ -148,7 +148,7 @@ func SendTextMsg(app, uids, content string) Result {
 // SendCardMsg 发送卡片消息
 func SendCardMsg(app, uids, title, description, url, btntxt string) Result {
 	var result Result
-	resp, err := request("/Api/PushWework/sendCardMsg", map[string]string{
+	resp, err := request("/api/pushWework/sendCardMsg", map[string]string{
 		"app":         app,
 		"uids":        uids,
 		"title":       title,

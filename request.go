@@ -5,7 +5,6 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/go-basic/uuid"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -13,6 +12,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/go-basic/uuid"
 )
 
 var urlSet = []string{
@@ -35,7 +36,7 @@ func post(url string, data netUrl.Values, contentType string) ([]byte, error) {
 	req, _ := http.NewRequest("POST", url, body)
 
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded; param=value")
-	req.Header.Set("User-Agent", "Mozilla/5.0 (compatible; Ics/3.1; +https://api.jlqwer.com/api/about)")
+	req.Header.Set("User-Agent", "Mozilla/5.0 (compatible; Ics/4.0; +https://api.jlqwer.com/api/about)")
 
 	resp, err := client.Do(req)
 	if err != nil {
