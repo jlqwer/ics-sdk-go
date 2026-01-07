@@ -1,7 +1,7 @@
 package ics
 
 type appInfo struct {
-	AppId     string
+	AppId     int
 	SecretId  string
 	SecretKey string
 }
@@ -10,7 +10,7 @@ var (
 	app appInfo
 )
 
-func Init(appid string, secretId string, secretKey string) {
+func Init(appid int, secretId string, secretKey string) {
 	app.AppId = appid
 	app.SecretId = secretId
 	app.SecretKey = secretKey
