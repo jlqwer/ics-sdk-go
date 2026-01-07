@@ -2,6 +2,7 @@
 retract v0.1.0
 retract v0.2.0
 retract v0.2.1
+retract v0.3.0
 
 module github.com/jlqwer/ics-sdk-go
 
