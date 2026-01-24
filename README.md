@@ -7,7 +7,7 @@
 package main
 import "github.com/jlqwer/ics-sdk-go"
 func main() {
-	appid := ""
+	appid := 100009
 	secretId := ""
 	secretKey := ""
     ics.Init(appid, secretId, secretKey)
@@ -23,7 +23,7 @@ import (
     "github.com/jlqwer/ics-sdk-go"
 )
 func main() {
-	appid := ""
+	appid := 100009
 	secretId := ""
 	secretKey := ""
 	ics.Init(appid, secretId, secretKey)
@@ -43,7 +43,7 @@ import (
     "github.com/jlqwer/ics-sdk-go"
 )
 func main() {
-	appid := ""
+	appid := 100009
 	secretId := ""
 	secretKey := ""
 	ics.Init(appid, secretId, secretKey)
@@ -60,7 +60,7 @@ import (
     "github.com/jlqwer/ics-sdk-go"
 )
 func main() {
-	appid := ""
+	appid := 100002
 	secretId := ""
 	secretKey := ""
 	ics.Init(appid, secretId, secretKey)
